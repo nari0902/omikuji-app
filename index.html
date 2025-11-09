@@ -12,18 +12,31 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
-      background-image: url('https://github.com/nari0902/omikuji-app/blob/main/BA93210B-B873-40C3-A0B7-2E5123E9C8FA_1_105_c.jpeg?raw=true');  /* ←この行を追加 */
-      background-size: cover;                    /* ←この行を追加 */
-      background-position: center;  
+      overflow: hidden;
+      position: relative;
+    }
+    
+    #video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -1;
+      object-fit: cover;
     }
     
     .container {
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       padding: 40px;
       border-radius: 20px;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
       text-align: center;
       max-width: 400px;
+      position: relative;
+      z-index: 1;
     }
     
     h1 {
@@ -70,6 +83,11 @@
   </style>
 </head>
 <body>
+  <!-- 背景動画 -->
+  <video id="video-bg" autoplay muted loop playsinline>
+    <source src="https://res.cloudinary.com/dnmybxwxx/video/upload/v1762675701/IMG_0628_kcgxbt.mov" type="video/mp4">
+  </video>
+  
   <div class="container">
     <h1>🎋 おみくじ 🎋</h1>
     <div id="result"></div>
