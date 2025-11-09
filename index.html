@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>おみくじアプリ</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      text-align: center;
+      max-width: 400px;
+    }
+    
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 32px;
+    }
+    
+    #result {
+      font-size: 48px;
+      font-weight: bold;
+      margin: 30px 0;
+      min-height: 60px;
+      color: #667eea;
+    }
+    
+    #message {
+      font-size: 18px;
+      color: #666;
+      min-height: 60px;
+      margin: 20px 0;
+    }
+    
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      font-size: 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-weight: bold;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎋 おみくじ 🎋</h1>
+    <div id="result"></div>
+    <div id="message"></div>
+    <button id="drawButton">おみくじを引く</button>
+  </div>
+
+  <script>
+    // おみくじの結果を配列で定義
+    const omikujiResults = [
+      { fortune: '大吉', message: '素晴らしい一日になりそうです！' },
+      { fortune: '中吉', message: '良いことがありそうですよ！' },
+      { fortune: '小吉', message: 'ちょっとした幸せが訪れるかも！' },
+      { fortune: '吉', message: '穏やかな一日になりそうです。' },
+      { fortune: '末吉', message: '後半に良いことがあるかも！' },
+      { fortune: '凶', message: '今日は慎重に行動しましょう。' }
+    ];
+    
+    // HTML要素を取得
+    const resultElement = document.getElementById('result');
+    const messageElement = document.getElementById('message');
+    const drawButton = document.getElementById('drawButton');
+    
+    // ボタンがクリックされた時の処理
+    drawButton.addEventListener('click', function() {
+      // ランダムなインデックスを生成（0から配列の長さ-1まで）
+      const randomIndex = Math.floor(Math.random() * omikujiResults.length);
+      
+      // ランダムに選ばれた結果を取得
+      const result = omikujiResults[randomIndex];
+      
+      // 結果を画面に表示
+      resultElement.textContent = result.fortune;
+      messageElement.textContent = result.message;
+    });
+  </script>
+</body>
+</html>
