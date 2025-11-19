@@ -80,6 +80,50 @@
     button:active {
       transform: translateY(0);
     }
+    
+    /* オレオ画像のオーバーレイ */
+    #oreo-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: none;
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    #oreo-overlay.show {
+      display: flex;
+    }
+    
+    #oreo-image {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    
+    #close-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      z-index: 1001;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+    
+    #close-button:hover {
+      background: white;
+    }
   </style>
 </head>
 <body>
@@ -87,6 +131,12 @@
   <video id="video-bg" autoplay muted loop playsinline>
     <source src="https://res.cloudinary.com/dnmybxwxx/video/upload/v1762675701/IMG_0628_kcgxbt.mov" type="video/mp4">
   </video>
+  
+  <!-- オレオ画像のオーバーレイ -->
+  <div id="oreo-overlay">
+    <button id="close-button">引き直す</button>
+    <img id="oreo-image" src="https://res.cloudinary.com/dnmybxwxx/image/upload/v1763562838/3E402F05-7263-4046-A9F8-2B083993D8D3_1_102_o_qrf4py.jpg" alt="オレオ">
+  </div>
   
   <div class="container">
     <h1>🎋 おみくじ 🎋</h1>
@@ -104,17 +154,24 @@
       { fortune: '吉', message: '穏やかな一日になりそうです。' },
       { fortune: '末吉', message: '後半に良いことがあるかも！' },
       { fortune: '凶', message: '今日は慎重に行動しましょう。' },
-      { fortune: '座間味', message: 'でゆっくりしたいな〜。' }
+      { fortune: 'オレオ', message: '🎉 超ラッキー!オレオをゲット! 🎉' }
     ];
     
     // HTML要素を取得
     const resultElement = document.getElementById('result');
     const messageElement = document.getElementById('message');
     const drawButton = document.getElementById('drawButton');
+    const oreoOverlay = document.getElementById('oreo-overlay');
+    const closeButton = document.getElementById('close-button');
+    
+    // 引き直すボタンの処理
+    closeButton.addEventListener('click', function() {
+      oreoOverlay.classList.remove('show');
+    });
     
     // ボタンがクリックされた時の処理
     drawButton.addEventListener('click', function() {
-      // ランダムなインデックスを生成（0から配列の長さ-1まで）
+      // ランダムなインデックスを生成(0から配列の長さ-1まで)
       const randomIndex = Math.floor(Math.random() * omikujiResults.length);
       
       // ランダムに選ばれた結果を取得
@@ -123,6 +180,11 @@
       // 結果を画面に表示
       resultElement.textContent = result.fortune;
       messageElement.textContent = result.message;
+      
+      // オレオが出た場合、画像を表示
+      if (result.fortune === 'オレオ') {
+        oreoOverlay.classList.add('show');
+      }
     });
   </script>
 </body>
